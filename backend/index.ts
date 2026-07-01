@@ -262,7 +262,7 @@ io.on("connection" , (socket)=>{
 })
 
 
-// listening on port 8080
+// listening on port 8080 (if using cluster mode)
 
 server.listen(3001,()=>{
     console.log("running on 3001")
