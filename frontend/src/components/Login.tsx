@@ -114,6 +114,7 @@ function Login() {
             <h1 className="font-semibold tracking-tight text-stone-900 text-lg">WhatsYapp</h1>
             <p className="text-sm text-stone-500">You're signed in</p>
             <Button variant="outline" className="rounded-full w-full" onClick={signOut}>Sign Out</Button>
+            <Button variant="default" className="rounded-full w-full" onClick={()=> navigate("/chat")}>Start Yapping</Button>
         </div> 
         }
         
