@@ -263,7 +263,8 @@ io.on("connection" , (socket)=>{
 
 
 // listening on port 8080 (if using cluster mode)
+const PORT = process.env.PORT || 3001
 
-server.listen(3001,()=>{
-    console.log("running on 3001")
+server.listen(PORT,()=>{
+    console.log(`running on ${PORT} `)
 })
