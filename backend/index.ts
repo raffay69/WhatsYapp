@@ -44,7 +44,28 @@ startConsumer()
 startRetryConsumer()
 startDLQConsumer()
 
+app.get("/checkUser/:email" , async(req , res)=>{
+    try{
+        const { email } = req.params
+        const data = await prisma.users.findFirst({
+            where : {
+                email
+            }
+        })
+        
+        if(data){
+            return res.status(200).json({message : "found"})
+        } else {
+            return res.status(200).json({message : "not_found"})
+        }
 
+    } catch(e){
+        if(e instanceof Error){
+            console.log(e.message)
+            res.status(500).json({message : e.message})
+        }
+    }
+})
 
 app.get("/users" , authMiddleware , async (req , res)=>{
     try{
