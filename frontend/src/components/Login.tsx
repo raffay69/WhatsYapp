@@ -6,10 +6,13 @@ import { toast } from "sonner"
 import { useNavigate } from "react-router"
 import { Spinner } from "./ui/spinner"
 import { useAuth } from "@/hooks/auth"
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "./ui/empty"
+import { Icon, Inbox, MailCheck, RefreshCcwIcon } from "lucide-react"
 
 function Login() {
     const [ email , setEmail] = useState<string>()
     const [ password , setPassword ] = useState<string>()
+    const [ confirmEmail , setConfirmEmail] = useState<boolean>(false)
     const { userId , loading} = useAuth()
     const navigate = useNavigate()
 
@@ -24,8 +27,7 @@ function Login() {
         })
 
         if(data.user){
-            toast("Welcome")
-            navigate("/chat")
+            setConfirmEmail(true)
         }
         
         if(error){
@@ -73,6 +75,33 @@ function Login() {
   return (
     <div className='w-screen h-screen flex justify-center items-center bg-stone-100'>
         {!userId ?
+        confirmEmail ? 
+        <div className="w-full max-w-sm rounded-2xl border border-stone-200 bg-white shadow-sm p-8">
+            <div className="flex flex-col items-center gap-2 mb-2">
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                <h1 className="font-semibold tracking-tight text-stone-900 text-lg">WhatsYapp</h1>
+            </div>
+
+            <Empty>
+                <EmptyHeader>
+                <EmptyMedia variant="icon" className="bg-emerald-50 text-emerald-600">
+                    <MailCheck />
+                </EmptyMedia>
+                <EmptyTitle>Verify your email</EmptyTitle>
+                <EmptyDescription className="text-pretty text-stone-500">
+                    We sent a verification link to{" "}
+                    <span className="font-medium text-stone-900">{email}</span>. Click the
+                    link to activate your account.
+                </EmptyDescription>
+                </EmptyHeader>
+                <EmptyContent>
+                <Button variant="outline" onClick={() => setConfirmEmail(false)}>
+                    Back to login
+                </Button>
+                </EmptyContent>
+            </Empty>
+            </div>
+        :
         <div className="w-full max-w-sm rounded-2xl border border-stone-200 bg-white shadow-sm p-8">
             <div className="flex flex-col items-center gap-2 mb-8">
                 <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />

@@ -94,7 +94,7 @@ app.post("/create/single" , authMiddleware , async (req ,res)=>{
         where : {
             type : 'Single',
             Members : {
-                hasSome : [JSON.stringify({id , name}) , JSON.stringify({id : req.userId , name : req.userName})] 
+                hasEvery : [JSON.stringify({id , name}) , JSON.stringify({id : req.userId , name : req.userName})]
             }
         }
     })

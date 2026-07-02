@@ -91,7 +91,7 @@ interface messageType {
 interface ConversationType {
     id    : string
     Members : string[]
-    type     : string
+    type     : "Group" | "Single"
     GroupName? : string ,
     GroupAdmin? : string ,
     messages : messageType[]
@@ -373,6 +373,12 @@ function Chat() {
     async function deleteChat(id:string|undefined) {
         try{
             setDeleting(true)
+
+            if(chat?.type === "Group" && chat.GroupAdmin !== userId){
+                toast("Only Admins can delete groups")
+                return
+            }
+
             await axios.delete(`${BACKEND_URL}/conversation/${id}` , {
                 headers : {
                     Authorization : `Bearer ${await getAccessToken()}`
