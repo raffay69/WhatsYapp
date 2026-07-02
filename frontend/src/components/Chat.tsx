@@ -62,7 +62,7 @@ import {
 import React, { useEffect, useRef, useState } from "react"
 import { Spinner } from "./ui/spinner"
 import { Separator } from "./ui/separator"
-import { EllipsisVertical, MessageCircleWarning, Send, TrashIcon, UserRoundPlus, UserRoundX, View } from "lucide-react"
+import { ArrowLeft, EllipsisVertical, MessageCircleWarning, Send, TrashIcon, UserRoundPlus, UserRoundX, View } from "lucide-react"
 import { Input } from "./ui/input"
 import { toast } from "sonner"
 import { useAuth } from "@/hooks/auth"
@@ -153,7 +153,7 @@ function Chat() {
         })
 
         socket.on("receive_message" , ({id , message ,  sendersId , sendersName , createdAt})=>{
-            //@ts-ignore
+            // @ts-ignore
             setChat((prev)=>({ ...prev! , messages : [ ...prev?.messages , { id , senderId : sendersId, senderName : sendersName , message , createdAt }]}))
         })
 
@@ -411,17 +411,17 @@ function Chat() {
 
 
   return (
-    <div className="h-screen w-screen flex justify-center items-center bg-stone-100">
-        <div className="w-[1500px] h-[700px] rounded-2xl border border-stone-200 bg-white shadow-sm flex flex-col overflow-hidden">
+    <div className="h-screen w-screen flex justify-center items-center bg-stone-100 sm:p-4">
+        <div className="w-full h-full sm:w-[1500px] sm:h-[700px] sm:rounded-2xl sm:border border-stone-200 bg-white sm:shadow-sm flex flex-col overflow-hidden">
             {/* app header */}
-            <div className="flex items-center gap-2 px-6 py-4 border-b border-stone-200 shrink-0">
+            <div className="flex items-center gap-2 px-4 sm:px-6 py-3 sm:py-4 border-b border-stone-200 shrink-0">
                 <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
                 <span className="font-semibold tracking-tight text-stone-900">WhatsYapp</span>
             </div>
 
             <div className="flex flex-1 min-h-0">
-            <div className="border-r border-stone-200 grow flex flex-col min-h-0">
-                <div className="flex gap-2 m-4">
+            <div className={`border-r border-stone-200 grow flex-col min-h-0 w-full md:w-auto ${selectedConvo ? "hidden md:flex" : "flex"}`}>
+                <div className="flex gap-2 m-4 flex-wrap">
                     <Dialog open={open1} onOpenChange={setOpen1}>
                             <DialogTrigger asChild>
                             <Button size="sm" className="rounded-full" onClick={()=>loadUsers("none")}>Create Chat</Button>
@@ -653,12 +653,17 @@ function Chat() {
             </div>
             {/* chat section */}
             { selectedConvo ? 
-            <div className="grow-40 flex flex-col min-h-0">
-                <div className="flex justify-between items-center px-6 py-4 shrink-0">
-                    <div className="font-medium text-stone-900">{chatLoading ? "Loading..." : chat?.type === "Single" ? chat.Members.map((el)=> JSON.parse(el)).filter((el)=> el.id != userId)[0].name : chat?.GroupName}</div>
+            <div className="grow-40 flex flex-col min-h-0 w-full">
+                <div className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 shrink-0">
+                    <div className="flex items-center gap-1 min-w-0">
+                        <Button variant="ghost" size="icon" className="rounded-full shrink-0 md:hidden" onClick={()=>setSelectedConvo("")}>
+                            <ArrowLeft/>
+                        </Button>
+                        <div className="font-medium text-stone-900 truncate">{chatLoading ? "Loading..." : chat?.type === "Single" ? chat.Members.map((el)=> JSON.parse(el)).filter((el)=> el.id != userId)[0].name : chat?.GroupName}</div>
+                    </div>
                     <DropdownMenu modal={false}>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="outline" size="icon" className="rounded-full"><EllipsisVertical/></Button>
+                            <Button variant="outline" size="icon" className="rounded-full shrink-0"><EllipsisVertical/></Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="rounded-xl">
                             <DropdownMenuGroup>
@@ -691,7 +696,7 @@ function Chat() {
                      chat?.messages.length === 0 ? 
                      <div className="flex justify-center mt-[200px] text-stone-400 text-sm">Start a conversation</div> :
                      <div>
-                        <ItemGroup className="flex flex-col gap-2 w-full p-4">
+                        <ItemGroup className="flex flex-col gap-2 w-full p-3 sm:p-4">
                         {chat?.messages.map((el) => (
                             <div
                             key={el.id}
@@ -703,7 +708,7 @@ function Chat() {
                             >
                             <Item
                                 variant="muted"
-                                className={`max-w-[70%] border-none rounded-2xl ${
+                                className={`max-w-[85%] sm:max-w-[70%] border-none rounded-2xl ${
                                 el.senderId === userId ? "bg-emerald-600 text-white rounded-br-sm" : "bg-stone-100 text-stone-900 rounded-bl-sm"
                                 }`}
                             >
@@ -738,7 +743,7 @@ function Chat() {
                      </div>
                     }
                     </div>
-                    <div className="flex items-center gap-2 p-4 shrink-0">
+                    <div className="flex items-center gap-2 p-3 sm:p-4 shrink-0">
                         <Input className="rounded-full" value={sendMessage} onChange={(e)=>{
                             socket.emit("typing" , { id : chat?.id , userId , userName})
                             setSendMessage(e.target.value)}}
@@ -754,7 +759,7 @@ function Chat() {
                     </div>
                 </div>
             </div>
-            : <div className="grow-40 flex">
+            : <div className="hidden md:flex grow-40">
                 <Empty className="border-none">
                     <EmptyHeader>
                         <img src="/public/logo.png" className="h-20 w-40" alt="" />
