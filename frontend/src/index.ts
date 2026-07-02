@@ -6,27 +6,13 @@ const server = serve({
     // Serve index.html for all unmatched routes.
     "/*": index,
 
-    "/api/hello": {
-      async GET(req) {
-        return Response.json({
-          message: "Hello, world!",
-          method: "GET",
-        });
-      },
-      async PUT(req) {
-        return Response.json({
-          message: "Hello, world!",
-          method: "PUT",
-        });
-      },
+    "/public/*": async (req) => {
+      const url = new URL(req.url);
+      const file = Bun.file(`.${url.pathname}`);
+      if (await file.exists()) return new Response(file);
+      return new Response("Not Found", { status: 404 });
     },
-
-    "/api/hello/:name": async req => {
-      const name = req.params.name;
-      return Response.json({
-        message: `Hello, ${name}!`,
-      });
-    },
+  
   },
 
   development: process.env.NODE_ENV !== "production" && {

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router"
 import { Spinner } from "./ui/spinner"
 import { useAuth } from "@/hooks/auth"
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "./ui/empty"
-import { Icon, Inbox, MailCheck, RefreshCcwIcon } from "lucide-react"
+import { MailCheck } from "lucide-react"
 
 function Login() {
     const [ email , setEmail] = useState<string>()
@@ -78,7 +78,7 @@ function Login() {
         confirmEmail ? 
         <div className="w-full max-w-sm rounded-2xl border border-stone-200 bg-white shadow-sm p-8">
             <div className="flex flex-col items-center gap-2 mb-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                <img src="/public/logo.png" className="h-20 w-40" alt="" />
                 <h1 className="font-semibold tracking-tight text-stone-900 text-lg">WhatsYapp</h1>
             </div>
 
@@ -104,7 +104,7 @@ function Login() {
         :
         <div className="w-full max-w-sm rounded-2xl border border-stone-200 bg-white shadow-sm p-8">
             <div className="flex flex-col items-center gap-2 mb-8">
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                <img src="/public/logo.png" className="h-20 w-40" alt="" />
                 <h1 className="font-semibold tracking-tight text-stone-900 text-lg">WhatsYapp</h1>
                 <p className="text-sm text-stone-500 text-center">Sign in to keep the conversation going</p>
             </div>
@@ -139,7 +139,8 @@ function Login() {
         </div>
         :
         <div className="w-full max-w-sm rounded-2xl border border-stone-200 bg-white shadow-sm p-8 flex flex-col items-center gap-4 text-center">
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
+            {/* <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" /> */}
+            <img src="/public/logo.png" className="h-20 w-40" alt="" />
             <h1 className="font-semibold tracking-tight text-stone-900 text-lg">WhatsYapp</h1>
             <p className="text-sm text-stone-500">You're signed in</p>
             <Button variant="outline" className="rounded-full w-full" onClick={signOut}>Sign Out</Button>

@@ -757,9 +757,7 @@ function Chat() {
             : <div className="grow-40 flex">
                 <Empty className="border-none">
                     <EmptyHeader>
-                        <EmptyMedia variant="icon" className="bg-stone-100 text-stone-400">
-                        <MessageCircleWarning />
-                        </EmptyMedia>
+                        <img src="/public/logo.png" className="h-20 w-40" alt="" />
                         <EmptyTitle className="text-stone-900">No Chat Selected</EmptyTitle>
                         <EmptyDescription className="text-stone-500">
                         Select a chat to start chatting
