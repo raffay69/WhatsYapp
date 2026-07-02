@@ -653,7 +653,7 @@ function Chat() {
             </div>
             {/* chat section */}
             { selectedConvo ? 
-            <div className="grow-40 flex flex-col min-h-0 w-full">
+            <div className="grow-40 flex flex-col min-h-0 w-full md:w-auto">
                 <div className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4 shrink-0">
                     <div className="flex items-center gap-1 min-w-0">
                         <Button variant="ghost" size="icon" className="rounded-full shrink-0 md:hidden" onClick={()=>setSelectedConvo("")}>
